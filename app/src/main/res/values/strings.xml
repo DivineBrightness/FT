@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">易经占卜</string>
+
+    <!-- 导航 -->
+    <string name="nav_home">首页</string>
+    <string name="nav_divination">占卜</string>
+    <string name="nav_hexagram">卦象</string>
+    <string name="nav_history">历史</string>
+    <string name="nav_learning">学习</string>
+
+    <!-- 占卜 -->
+    <string name="divination_title">铜钱卜卦</string>
+    <string name="divination_question_hint">请输入您想要占卜的问题（可选）</string>
+    <string name="divination_start">开始占卜</string>
+    <string name="divination_toss_coin">投掷铜钱</string>
+    <string name="divination_shake_phone">摇动手机</string>
+    <string name="divination_progress">第 %1$d 爻 / 共 6 爻</string>
+    <string name="divination_complete">卦象生成完成</string>
+
+    <!-- 卦象 -->
+    <string name="hexagram_original">本卦</string>
+    <string name="hexagram_changed">变卦</string>
+    <string name="hexagram_no_change">无变爻</string>
+    <string name="hexagram_upper">上卦：%1$s</string>
+    <string name="hexagram_lower">下卦：%1$s</string>
+
+    <!-- 解读 -->
+    <string name="interpretation_guaci">卦辞</string>
+    <string name="interpretation_xiangci">象辞</string>
+    <string name="interpretation_tuanci">彖辞</string>
+    <string name="interpretation_meaning">卦义</string>
+    <string name="interpretation_fortune">吉凶：%1$s</string>
+
+    <!-- 应用指导 -->
+    <string name="guidance_career">事业</string>
+    <string name="guidance_love">爱情</string>
+    <string name="guidance_health">健康</string>
+    <string name="guidance_wealth">财富</string>
+
+    <!-- 爻辞 -->
+    <string name="yao_line">第 %1$d 爻</string>
+    <string name="yao_changing">变爻</string>
+
+    <!-- 历史记录 -->
+    <string name="history_title">占卜历史</string>
+    <string name="history_empty">暂无占卜记录</string>
+    <string name="history_question">问题：%1$s</string>
+    <string name="history_no_question">未记录问题</string>
+    <string name="history_delete">删除</string>
+    <string name="history_add_note">添加笔记</string>
+    <string name="history_note_hint">在此记录您的感悟和心得</string>
+
+    <!-- 学习 -->
+    <string name="learning_title">易经学习</string>
+    <string name="learning_basics">易经基础</string>
+    <string name="learning_divination_method">卜卦方法</string>
+    <string name="learning_bagua">八卦知识</string>
+    <string name="learning_yinyang">阴阳五行</string>
+
+    <!-- 通用 -->
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="delete">删除</string>
+    <string name="search">搜索</string>
+    <string name="search_hint">搜索卦名或关键词</string>
+
+    <!-- 免责声明 -->
+    <string name="disclaimer_title">免责声明</string>
+    <string name="disclaimer_content">本应用基于中国传统易经文化，旨在传承和普及易经知识。占卜结果仅供参考和娱乐，不构成任何专业建议。请理性看待，不要过度迷信。人生的选择需要理性思考和实际行动。</string>
+    <string name="disclaimer_agree">我已了解</string>
+
+    <!-- 关于 -->
+    <string name="about_title">关于</string>
+    <string name="about_version">版本：%1$s</string>
+    <string name="about_description">易经占卜是一款完全离线的传统文化应用，保护您的隐私，让您随时随地体验易经智慧。</string>
+</resources>
