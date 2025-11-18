@@ -25,6 +25,7 @@ import androidx.navigation.navArgument
 import com.yijing.divination.data.model.YaoType
 import com.yijing.divination.ui.components.HexagramView
 import com.yijing.divination.ui.screen.divination.DivinationScreen
+import com.yijing.divination.ui.screen.result.ResultScreen
 
 /**
  * 应用主导航图
@@ -83,10 +84,8 @@ fun YiJingNavGraph(
                     defaultValue = -1L
                 }
             )
-        ) { backStackEntry ->
-            val recordId = backStackEntry.arguments?.getLong("recordId") ?: -1L
-            ResultScreenPlaceholder(
-                recordId = recordId,
+        ) {
+            ResultScreen(
                 onNavigateBack = {
                     navController.navigateUp()
                 },
@@ -205,18 +204,6 @@ private fun HomeScreenPlaceholder(
             )
         }
     }
-}
-
-@Composable
-private fun ResultScreenPlaceholder(
-    recordId: Long,
-    onNavigateBack: () -> Unit,
-    onNavigateToHome: () -> Unit
-) {
-    PlaceholderScreen(
-        title = "占卜结果",
-        subtitle = "记录 ID: $recordId"
-    )
 }
 
 @Composable
