@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.yijing.divination.data.model.YaoType
 import com.yijing.divination.ui.components.HexagramView
+import com.yijing.divination.ui.screen.divination.DivinationScreen
 
 /**
  * 应用主导航图
@@ -61,7 +64,7 @@ fun YiJingNavGraph(
 
         // 占卜屏幕
         composable(Screen.Divination.route) {
-            DivinationScreenPlaceholder(
+            DivinationScreen(
                 onNavigateToResult = { recordId ->
                     navController.navigate(Screen.Result.createRoute(recordId))
                 },
@@ -186,18 +189,22 @@ private fun HomeScreenPlaceholder(
             changingPositions = listOf(0),
             modifier = Modifier.width(200.dp)
         )
-    }
-}
 
-@Composable
-private fun DivinationScreenPlaceholder(
-    onNavigateToResult: (Long) -> Unit,
-    onNavigateBack: () -> Unit
-) {
-    PlaceholderScreen(
-        title = "占卜",
-        subtitle = "投掷铜钱屏幕"
-    )
+        Spacer(modifier = Modifier.height(48.dp))
+
+        // 开始占卜按钮
+        Button(
+            onClick = onNavigateToDivination,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+        ) {
+            Text(
+                text = "开始占卜",
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+    }
 }
 
 @Composable
