@@ -1,19 +1,27 @@
 package com.yijing.divination.ui.navigation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.yijing.divination.data.model.YaoType
+import com.yijing.divination.ui.components.HexagramView
 
 /**
  * 应用主导航图
@@ -150,10 +158,35 @@ private fun HomeScreenPlaceholder(
     onNavigateToHistory: () -> Unit,
     onNavigateToLearning: () -> Unit
 ) {
-    PlaceholderScreen(
-        title = "易经占卜",
-        subtitle = "主屏幕"
-    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "易经占卜",
+            style = MaterialTheme.typography.headlineLarge,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // 展示卦象组件示例
+        HexagramView(
+            lines = listOf(
+                YaoType.YANG,
+                YaoType.YANG,
+                YaoType.YANG,
+                YaoType.YIN,
+                YaoType.YIN,
+                YaoType.YIN
+            ),
+            hexagramName = "泰",
+            changingPositions = listOf(0),
+            modifier = Modifier.width(200.dp)
+        )
+    }
 }
 
 @Composable
