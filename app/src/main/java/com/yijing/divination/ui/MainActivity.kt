@@ -3,19 +3,17 @@ package com.yijing.divination.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.yijing.divination.data.DatabaseInitializer
+import com.yijing.divination.ui.navigation.YiJingNavGraph
 import com.yijing.divination.ui.theme.YiJingTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * 主 Activity
@@ -25,6 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var databaseInitializer: DatabaseInitializer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,37 +34,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Scaffold { paddingValues ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(paddingValues),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            WelcomeScreen()
-                        }
+                    val navController = rememberNavController()
+
+                    // 初始化数据库
+                    LaunchedEffect(Unit) {
+                        databaseInitializer.initializeIfNeeded()
                     }
+
+                    YiJingNavGraph(navController = navController)
                 }
             }
         }
-    }
-}
-
-/**
- * 欢迎屏幕（临时）
- */
-@Composable
-fun WelcomeScreen() {
-    Text(
-        text = "易经占卜",
-        style = MaterialTheme.typography.headlineLarge
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun WelcomeScreenPreview() {
-    YiJingTheme {
-        WelcomeScreen()
     }
 }

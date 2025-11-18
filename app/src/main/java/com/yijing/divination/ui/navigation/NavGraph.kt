@@ -40,7 +40,12 @@ fun YiJingNavGraph(
 
         // 占卜
         composable(Screen.Divination.route) {
-            // TODO: DivinationScreen
+            com.yijing.divination.ui.screen.divination.DivinationScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToResult = { recordId ->
+                    navController.navigate(Screen.Result.createRoute(recordId))
+                }
+            )
         }
 
         // 结果展示
