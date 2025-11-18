@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 传统中国色 -->
+    <color name="chinese_red">#DC143C</color>
+    <color name="ink_black">#2C3E50</color>
+    <color name="paper_white">#FFFAF0</color>
+    <color name="bamboo_green">#6B8E23</color>
+    <color name="gold_yellow">#FFD700</color>
+
+    <!-- Material Design 3 主题色 -->
+    <color name="md_theme_light_primary">#8B4513</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#FFDDB3</color>
+    <color name="md_theme_light_onPrimaryContainer">#2B1700</color>
+    <color name="md_theme_light_secondary">#6B5D3F</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#F5E1BB</color>
+    <color name="md_theme_light_onSecondaryContainer">#231B04</color>
+    <color name="md_theme_light_tertiary">#4C6546</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#CEEBC3</color>
+    <color name="md_theme_light_onTertiaryContainer">#092008</color>
+    <color name="md_theme_light_error">#BA1A1A</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#FFDAD6</color>
+    <color name="md_theme_light_onErrorContainer">#410002</color>
+    <color name="md_theme_light_background">#FFFBFF</color>
+    <color name="md_theme_light_onBackground">#1F1B16</color>
+    <color name="md_theme_light_surface">#FFFBFF</color>
+    <color name="md_theme_light_onSurface">#1F1B16</color>
+    <color name="md_theme_light_surfaceVariant">#EDE1CF</color>
+    <color name="md_theme_light_onSurfaceVariant">#4D4639</color>
+    <color name="md_theme_light_outline">#7F7667</color>
+
+    <color name="md_theme_dark_primary">#FFB958</color>
+    <color name="md_theme_dark_onPrimary">#4A2800</color>
+    <color name="md_theme_dark_primaryContainer">#693C00</color>
+    <color name="md_theme_dark_onPrimaryContainer">#FFDDB3</color>
+    <color name="md_theme_dark_secondary">#D8C5A1</color>
+    <color name="md_theme_dark_onSecondary">#3A2F15</color>
+    <color name="md_theme_dark_secondaryContainer">#52462A</color>
+    <color name="md_theme_dark_onSecondaryContainer">#F5E1BB</color>
+    <color name="md_theme_dark_tertiary">#B2CFA8</color>
+    <color name="md_theme_dark_onTertiary">#1F361A</color>
+    <color name="md_theme_dark_tertiaryContainer">#354D30</color>
+    <color name="md_theme_dark_onTertiaryContainer">#CEEBC3</color>
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_dark_background">#1F1B16</color>
+    <color name="md_theme_dark_onBackground">#EAE1D9</color>
+    <color name="md_theme_dark_surface">#1F1B16</color>
+    <color name="md_theme_dark_onSurface">#EAE1D9</color>
+    <color name="md_theme_dark_surfaceVariant">#4D4639</color>
+    <color name="md_theme_dark_onSurfaceVariant">#D0C5B4</color>
+    <color name="md_theme_dark_outline">#998F80</color>
+
+    <!-- 爻线颜色 -->
+    <color name="yao_yang">#2C3E50</color>
+    <color name="yao_yin">#2C3E50</color>
+    <color name="yao_changing">#DC143C</color>
+</resources>
