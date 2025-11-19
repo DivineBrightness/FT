@@ -5,7 +5,14 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +33,11 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onNavigateToDivination: () -> Unit
+    onNavigateToDivination: () -> Unit,
+    onNavigateToHistory: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1f) }
@@ -56,51 +65,64 @@ fun HomeScreen(
         )
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        // 1. 太极八卦图（居中）
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .clickable(
-                    onClick = {
-                        scope.launch {
-                            scale.animateTo(0.9f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
-                            scale.animateTo(1.1f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
-                            scale.animateTo(1f, spring(dampingRatio = Spring.DampingRatioLowBouncy))
-                            onNavigateToDivination()
-                        }
-                    },
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            TaichiDiagram(
-                taichiRotation = taichiRotation.value,
-                baguaRotation = baguaRotation.value,
-                scale = scale.value
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("") },
+                actions = {
+                    IconButton(onClick = onNavigateToHistory) {
+                        Icon(Icons.Default.Home, contentDescription = "历史记录")
+                    }
+                }
             )
         }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            // 1. 太极八卦图（居中）
+            Box(
+                modifier = Modifier
+                    .size(300.dp)
+                    .clickable(
+                        onClick = {
+                            scope.launch {
+                                scale.animateTo(0.9f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
+                                scale.animateTo(1.1f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
+                                scale.animateTo(1f, spring(dampingRatio = Spring.DampingRatioLowBouncy))
+                                onNavigateToDivination()
+                            }
+                        },
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                TaichiDiagram(
+                    taichiRotation = taichiRotation.value,
+                    baguaRotation = baguaRotation.value,
+                    scale = scale.value
+                )
+            }
 
-        // 2. 竖排文字：上联在右，下联在左
-        // 右侧文字：人能常清净
-        VerticalText(
-            text = "人能常清净",
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 24.dp) // 距离右边距
-        )
+            // 2. 竖排文字：上联在右，下联在左
+            // 右侧文字：人能常清净
+            VerticalText(
+                text = "人能常清净",
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 24.dp) // 距离右边距
+            )
 
-        // 左侧文字：天地悉皆归
-        VerticalText(
-            text = "天地悉皆归",
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .padding(start = 24.dp) // 距离左边距
-        )
+            // 左侧文字：天地悉皆归
+            VerticalText(
+                text = "天地悉皆归",
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 24.dp) // 距离左边距
+            )
+        }
     }
 }
 
