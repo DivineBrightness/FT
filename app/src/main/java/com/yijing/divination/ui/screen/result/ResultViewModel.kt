@@ -27,7 +27,7 @@ class ResultViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val recordId: Long = savedStateHandle.get<String>("recordId")?.toLongOrNull() ?: -1L
+    private val recordId: Long = savedStateHandle.get<Long>("recordId") ?: -1L
 
     // UI 状态
     private val _uiState = MutableStateFlow(ResultUiState())
