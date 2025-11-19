@@ -71,6 +71,21 @@ class HistoryViewModel @Inject constructor(
             }
         }
     }
+
+    /**
+     * 删除所有记录
+     */
+    fun deleteAllRecords() {
+        viewModelScope.launch {
+            try {
+                recordRepository.deleteAll()
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(errorMessage = "删除失败：${e.message}")
+                }
+            }
+        }
+    }
 }
 
 /**
