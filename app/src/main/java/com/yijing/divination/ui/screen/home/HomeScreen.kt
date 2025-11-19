@@ -42,28 +42,29 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1f) }
 
+    // 使用 rememberInfiniteTransition 自动管理生命周期
+    // 当组件离开屏幕时会自动停止动画，节省CPU和电量
+    val infiniteTransition = rememberInfiniteTransition(label = "taichi_bagua_rotation")
+
     // 太极旋转：12秒一圈，恒定速度
-    val taichiRotation = remember { Animatable(0f) }
+    val taichiRotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 12000, easing = LinearEasing)
+        ),
+        label = "taichi_rotation"
+    )
+
     // 八卦旋转：60秒一圈反向，恒定速度
-    val baguaRotation = remember { Animatable(0f) }
-
-    LaunchedEffect(Unit) {
-        taichiRotation.animateTo(
-            targetValue = 360f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(durationMillis = 12000, easing = LinearEasing)
-            )
-        )
-    }
-
-    LaunchedEffect(Unit) {
-        baguaRotation.animateTo(
-            targetValue = -360f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(durationMillis = 60000, easing = LinearEasing)
-            )
-        )
-    }
+    val baguaRotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = -360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 60000, easing = LinearEasing)
+        ),
+        label = "bagua_rotation"
+    )
 
     Scaffold(
         topBar = {
@@ -100,8 +101,8 @@ fun HomeScreen(
                 contentAlignment = Alignment.Center
             ) {
                 TaichiDiagram(
-                    taichiRotation = taichiRotation.value,
-                    baguaRotation = baguaRotation.value,
+                    taichiRotation = taichiRotation,
+                    baguaRotation = baguaRotation,
                     scale = scale.value
                 )
             }
