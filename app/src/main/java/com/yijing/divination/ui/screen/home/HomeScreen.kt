@@ -4,9 +4,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
@@ -57,6 +60,7 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+        // 1. 太极八卦图（居中）
         Box(
             modifier = Modifier
                 .size(300.dp)
@@ -78,6 +82,51 @@ fun HomeScreen(
                 taichiRotation = taichiRotation.value,
                 baguaRotation = baguaRotation.value,
                 scale = scale.value
+            )
+        }
+
+        // 2. 竖排文字：上联在右，下联在左
+        // 右侧文字：人能常清净
+        VerticalText(
+            text = "人能常清净",
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 24.dp) // 距离右边距
+        )
+
+        // 左侧文字：天地悉皆归
+        VerticalText(
+            text = "天地悉皆归",
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(start = 24.dp) // 距离左边距
+        )
+    }
+}
+
+/**
+ * 竖排文字组件
+ */
+@Composable
+fun VerticalText(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp) // 字间距
+    ) {
+        text.forEach { char ->
+            Text(
+                text = char.toString(),
+                style = TextStyle(
+                    fontSize = 22.sp,
+                    color = Color(0xFF333333), // 深灰色，很有质感
+                    fontFamily = FontFamily.Serif, // 使用衬线体（类似宋体）
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 4.sp
+                )
             )
         }
     }
@@ -208,25 +257,14 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawBagua(
     val guaSpacing = 5f
 
     bagua.forEachIndexed { index, yao ->
-        // 角度计算：
-        // CSS 中 pos-li 是 rotate(0deg) translateY(-200px)。0度在12点钟方向。
-        // 我们的循环从离卦(Li)开始。
         val angleDeg = index * 45f
-        val angleRad = (angleDeg - 90) * (PI / 180.0) // -90是为了让0度对应12点钟方向 (Canvas默认0是3点)
+        val angleRad = (angleDeg - 90) * (PI / 180.0)
 
         val x = centerX + guaRadius * cos(angleRad).toFloat()
         val y = centerY + guaRadius * sin(angleRad).toFloat()
 
-        // ★★★ 关键修正：在绘制每个卦象时，旋转画布！ ★★★
-        // 我们需要旋转 (angleDeg) 度。
-        // 比如离卦在顶部(0度)，线条应该是水平的。
-        // 比如乾卦在底部(180度)，线条也是水平的。
-        // 比如右侧(90度)，线条看起来是垂直排列的，其实是相对于圆心平行的。
-        // 这里的逻辑是：先把画布旋转到对应角度，这样我们在画“水平线”时，它自然就垂直于半径了。
         rotate(degrees = angleDeg, pivot = Offset(x, y)) {
             yao.forEachIndexed { yaoIndex, isYang ->
-                // 绘制三爻，y坐标基于中心点上下偏移
-                // 注意：这里是在旋转后的坐标系里画，所以只管上下(Y轴)排布即可
                 val totalHeight = 3 * guaHeight + 2 * guaSpacing
                 val startY = y - totalHeight / 2
                 val yaoY = startY + yaoIndex * (guaHeight + guaSpacing) + guaHeight/2
