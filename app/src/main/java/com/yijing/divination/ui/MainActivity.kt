@@ -11,7 +11,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.yijing.divination.ui.navigation.YiJingNavGraph
 import com.yijing.divination.ui.theme.YiJingTheme
@@ -22,14 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
  *
  * 使用 Jetpack Compose 构建 UI
  * 集成 Navigation Compose 进行屏幕导航
- * 使用 SplashScreen API 提供流畅的启动体验
  */
+
 @AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 安装启动画面（会在数据库初始化时显示，改善用户体验）
-        installSplashScreen()
 
         super.onCreate(savedInstanceState)
         setContent {

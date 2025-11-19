@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 启动画面主题（使用SplashScreen API） -->
-    <style name="Theme.YiJingDivination" parent="Theme.SplashScreen">
+    <!-- 应用主题 -->
+
+    <style name="Theme.YiJingDivination" parent="android:Theme.Material.Light.NoActionBar">
+
         <item name="android:statusBarColor">#FFFFFF</item>
-        <item name="windowSplashScreenBackground">#FFFFFF</item>
-        <item name="postSplashScreenTheme">@style/Theme.App</item>
+
     </style>
 
-    <!-- 应用主题（启动后使用） -->
+
+
+    <!-- 保留用于兼容性 -->
     <style name="Theme.App" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/md_theme_light_primary</item>
     </style>
