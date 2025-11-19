@@ -1,15 +1,8 @@
 package com.yijing.divination.ui.navigation
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,11 +15,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.yijing.divination.data.model.YaoType
-import com.yijing.divination.ui.components.HexagramView
 import com.yijing.divination.ui.screen.divination.DivinationScreen
 import com.yijing.divination.ui.screen.history.HistoryScreen
-import com.yijing.divination.ui.screen.method.DivinationMethodScreen
+import com.yijing.divination.ui.screen.home.HomeScreen
+import com.yijing.divination.ui.screen.method.CoinMethodScreen
 import com.yijing.divination.ui.screen.result.ResultScreen
 
 /**
@@ -47,20 +39,26 @@ fun YiJingNavGraph(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        // 主屏幕
+        // 主屏幕 - 太极图
         composable(Screen.Home.route) {
-            HomeScreenPlaceholder(
-                onNavigateToDivination = {
+            HomeScreen(
+                onNavigateToMethod = {
                     navController.navigate(Screen.DivinationMethod.route)
-                },
-                onNavigateToHexagramList = {
-                    navController.navigate(Screen.HexagramList.route)
+                }
+            )
+        }
+
+        // 占卜方法选择屏幕 - 铜钱
+        composable(Screen.DivinationMethod.route) {
+            CoinMethodScreen(
+                onNavigateToCoinToss = {
+                    navController.navigate(Screen.Divination.route)
                 },
                 onNavigateToHistory = {
                     navController.navigate(Screen.History.route)
                 },
-                onNavigateToLearning = {
-                    navController.navigate(Screen.Learning.route)
+                onNavigateBack = {
+                    navController.navigateUp()
                 }
             )
         }
@@ -167,59 +165,6 @@ fun YiJingNavGraph(
 
 // ==================== 占位符屏幕 ====================
 // 这些将在后续阶段被实际的屏幕实现替换
-
-@Composable
-private fun HomeScreenPlaceholder(
-    onNavigateToDivination: () -> Unit,
-    onNavigateToHexagramList: () -> Unit,
-    onNavigateToHistory: () -> Unit,
-    onNavigateToLearning: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "易经占卜",
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // 展示卦象组件示例
-        HexagramView(
-            lines = listOf(
-                YaoType.YANG,
-                YaoType.YANG,
-                YaoType.YANG,
-                YaoType.YIN,
-                YaoType.YIN,
-                YaoType.YIN
-            ),
-            hexagramName = "泰",
-            changingPositions = listOf(0),
-            modifier = Modifier.width(200.dp)
-        )
-
-        Spacer(modifier = Modifier.height(48.dp))
-
-        // 开始占卜按钮
-        Button(
-            onClick = onNavigateToDivination,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        ) {
-            Text(
-                text = "开始占卜",
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-    }
-}
 
 @Composable
 private fun HexagramListScreenPlaceholder(

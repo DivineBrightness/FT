@@ -323,9 +323,10 @@ private fun SectionContent(title: String, content: String) {
 }
 
 /**
- * 格式化时间戳
+ * 格式化时间戳为北京时间
  */
 private fun formatTimestamp(timestamp: Long): String {
     val sdf = SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss", Locale.CHINA)
+    sdf.timeZone = java.util.TimeZone.getTimeZone("Asia/Shanghai")
     return sdf.format(Date(timestamp))
 }
