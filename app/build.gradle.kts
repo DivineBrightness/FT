@@ -33,6 +33,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true  // 启用资源压缩，自动移除未使用的资源
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -73,6 +74,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-compose:1.8.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.core:core-splashscreen:1.0.1")  // SplashScreen API
 
     // Compose
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
@@ -80,7 +82,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended")
+    // 只使用Core图标集，减少APK大小约1.5MB
+    // 使用的图标：ArrowBack、Refresh、Delete、Home 都在Core包中
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
@@ -107,9 +110,6 @@ dependencies {
 
     // JSON Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
-    // Lottie Animation
-    implementation("com.airbnb.android:lottie-compose:6.1.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

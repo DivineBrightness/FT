@@ -35,12 +35,10 @@ class DatabaseInitializer @Inject constructor(
         val count = hexagramRepository.getHexagramCount()
 
         if (count == 0) {
-            println("数据库为空，开始导入数据...")
+            // 数据库为空，开始导入数据
             importDataFromJson()
-            println("数据导入完成！")
-        } else {
-            println("数据库已有 $count 个卦象，跳过导入")
         }
+        // 数据库已初始化，跳过导入
     }
 
     /**
@@ -56,8 +54,6 @@ class DatabaseInitializer @Inject constructor(
 
             // 解析 JSON
             val data = json.decodeFromString<HexagramDataRoot>(jsonString)
-
-            println("解析到 ${data.hexagrams.size} 个卦象")
 
             // 转换并插入数据
             data.hexagrams.forEach { hexagramData ->
@@ -95,13 +91,10 @@ class DatabaseInitializer @Inject constructor(
                 }
 
                 hexagramRepository.insertYaos(yaoEntities)
-
-                println("  ✓ 导入第 ${hexagramData.id} 卦: ${hexagramData.name} (${yaoEntities.size} 爻)")
             }
 
         } catch (e: Exception) {
-            println("导入数据时出错: ${e.message}")
-            e.printStackTrace()
+            // 导入失败，重新抛出异常供上层处理
             throw e
         }
     }
@@ -110,12 +103,7 @@ class DatabaseInitializer @Inject constructor(
      * 重新导入数据（清空并重新导入）
      */
     suspend fun reimportData() = withContext(Dispatchers.IO) {
-        println("清空数据库...")
         hexagramRepository.clearAll()
-
-        println("重新导入数据...")
         importDataFromJson()
-
-        println("重新导入完成！")
     }
 }
