@@ -63,21 +63,6 @@ fun YiJingNavGraph(
             )
         }
 
-        // 占卜方法选择屏幕
-        composable(Screen.DivinationMethod.route) {
-            DivinationMethodScreen(
-                onNavigateToCoinToss = {
-                    navController.navigate(Screen.Divination.route)
-                },
-                onNavigateToHistory = {
-                    navController.navigate(Screen.History.route)
-                },
-                onNavigateBack = {
-                    navController.navigateUp()
-                }
-            )
-        }
-
         // 占卜屏幕
         composable(Screen.Divination.route) {
             DivinationScreen(
