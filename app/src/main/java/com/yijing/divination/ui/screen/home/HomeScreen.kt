@@ -1,7 +1,9 @@
 package com.yijing.divination.ui.screen.home
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -12,8 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -40,16 +45,30 @@ fun HomeScreen(
 ) {
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1f) }
-    val rotation = remember { Animatable(0f) }
 
-    // 持续旋转动画
+    // 太极旋转：12秒一圈，恒定速度
+    val taichiRotation = remember { Animatable(0f) }
+    // 八卦旋转：60秒一圈反向，恒定速度
+    val baguaRotation = remember { Animatable(0f) }
+
+    // 太极持续旋转动画 - 12秒一圈
     LaunchedEffect(Unit) {
-        while (true) {
-            rotation.animateTo(
-                targetValue = rotation.value + 360f,
-                animationSpec = tween(12000)
+        taichiRotation.animateTo(
+            targetValue = 360f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 12000, easing = LinearEasing)
             )
-        }
+        )
+    }
+
+    // 八卦持续旋转动画 - 60秒一圈反向
+    LaunchedEffect(Unit) {
+        baguaRotation.animateTo(
+            targetValue = -360f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 60000, easing = LinearEasing)
+            )
+        )
     }
 
     Box(
@@ -95,7 +114,8 @@ fun HomeScreen(
             contentAlignment = Alignment.Center
         ) {
             TaichiDiagram(
-                rotation = rotation.value,
+                taichiRotation = taichiRotation.value,
+                baguaRotation = baguaRotation.value,
                 scale = scale.value
             )
         }
@@ -107,7 +127,8 @@ fun HomeScreen(
  */
 @Composable
 private fun TaichiDiagram(
-    rotation: Float,
+    taichiRotation: Float,
+    baguaRotation: Float,
     scale: Float
 ) {
     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -115,13 +136,13 @@ private fun TaichiDiagram(
         val centerY = size.height / 2
         val radius = (size.minDimension / 2) * scale
 
-        // 绘制八卦（外圈，反向旋转）
-        rotate(-rotation * 5, pivot = Offset(centerX, centerY)) {
+        // 绘制八卦（外圈，反向旋转，60秒一圈）
+        rotate(baguaRotation, pivot = Offset(centerX, centerY)) {
             drawBagua(centerX, centerY, radius)
         }
 
-        // 绘制太极（旋转）
-        rotate(rotation, pivot = Offset(centerX, centerY)) {
+        // 绘制太极（旋转，12秒一圈）
+        rotate(taichiRotation, pivot = Offset(centerX, centerY)) {
             drawTaichi(centerX, centerY, radius * 0.43f)
         }
     }
@@ -208,8 +229,9 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawBagua(
         listOf(true, true, false)     // 巽
     )
 
-    val guaRadius = radius * 0.67f
-    val guaWidth = 35f
+    // 调整八卦大小和位置，使其更明显
+    val guaRadius = radius * 0.68f  // 稍微调远一点
+    val guaWidth = 48f   // 增加宽度
     val guaHeight = 6f
     val guaSpacing = 3f
 

@@ -73,10 +73,10 @@ fun CoinMethodScreen(
                 .then(Modifier),
             contentAlignment = Alignment.Center
         ) {
-            // 铜钱按钮
+            // 铜钱按钮 - 调整大小为280dp
             Box(
                 modifier = Modifier
-                    .size(360.dp)
+                    .size(280.dp)
                     .clickable(
                         onClick = {
                             scope.launch {
@@ -117,7 +117,7 @@ fun CoinMethodScreen(
 }
 
 /**
- * 铜钱视图
+ * 铜钱视图 - 参考HTML设计
  */
 @Composable
 private fun CoinView(scale: Float) {
@@ -129,12 +129,18 @@ private fun CoinView(scale: Float) {
         val centerY = size.height / 2
         val radius = (size.minDimension / 2) * scale
 
-        // 古铜色渐变
+        // 先绘制阴影层（在最底部）
+        drawCircle(
+            color = Color(0x4D000000),  // 30% 不透明度的黑色
+            radius = radius * 1.01f,
+            center = Offset(centerX + 2f * scale, centerY + 3f * scale)
+        )
+
+        // 古铜色渐变背景 - 参考HTML的三层渐变
         val coinGradient = Brush.radialGradient(
-            0.0f to Color(0xFFD4AF37),
-            0.4f to Color(0xFFB87333),
-            0.6f to Color(0xFFA55D30),
-            1.0f to Color(0xFF8B4513),
+            0.0f to Color(0xFFB87333),   // 中心稍亮
+            0.4f to Color(0xFFA55D30),   // 中部
+            1.0f to Color(0xFF8B4513),   // 边缘深色
             center = Offset(centerX, centerY),
             radius = radius
         )
@@ -146,7 +152,33 @@ private fun CoinView(scale: Float) {
             center = Offset(centerX, centerY)
         )
 
-        // 金色外框
+        // 添加高光效果（左上角）
+        val highlightGradient = Brush.radialGradient(
+            0.0f to Color(0x4DFFFFFF),  // 30% 白色
+            0.7f to Color(0x00FFFFFF),  // 透明
+            center = Offset(centerX - radius * 0.3f, centerY - radius * 0.3f),
+            radius = radius * 0.7f
+        )
+        drawCircle(
+            brush = highlightGradient,
+            radius = radius,
+            center = Offset(centerX, centerY)
+        )
+
+        // 添加暗部效果（右下角）
+        val shadowGradient = Brush.radialGradient(
+            0.0f to Color(0x33000000),  // 20% 黑色
+            0.7f to Color(0x00000000),  // 透明
+            center = Offset(centerX + radius * 0.4f, centerY + radius * 0.4f),
+            radius = radius * 0.7f
+        )
+        drawCircle(
+            brush = shadowGradient,
+            radius = radius,
+            center = Offset(centerX, centerY)
+        )
+
+        // 金色外框（12px）
         drawCircle(
             color = Color(0xFFD4AF37),
             radius = radius,
@@ -154,16 +186,16 @@ private fun CoinView(scale: Float) {
             style = Stroke(width = 12f * scale)
         )
 
-        // 内部装饰圆环
+        // 内部装饰圆环（280/360 = 0.778）
         drawCircle(
             color = Color(0xFFD4AF37),
-            radius = radius * 0.78f,
+            radius = radius * 0.778f,
             center = Offset(centerX, centerY),
             style = Stroke(width = 6f * scale)
         )
 
-        // 方孔
-        val holeSize = 70f * scale
+        // 方孔（70px对应280dp铜钱的比例）
+        val holeSize = radius * 0.5f
         val holeLeft = centerX - holeSize / 2
         val holeTop = centerY - holeSize / 2
 
@@ -174,20 +206,19 @@ private fun CoinView(scale: Float) {
             size = androidx.compose.ui.geometry.Size(holeSize, holeSize)
         )
 
-        // 方孔金色边框
+        // 方孔内部阴影
+        drawRect(
+            color = Color(0x80000000),  // 50% 黑色阴影
+            topLeft = Offset(holeLeft + 2f * scale, holeTop + 2f * scale),
+            size = androidx.compose.ui.geometry.Size(holeSize * 0.3f, holeSize * 0.3f)
+        )
+
+        // 方孔金色边框（5px）
         drawRect(
             color = Color(0xFFD4AF37),
             topLeft = Offset(holeLeft, holeTop),
             size = androidx.compose.ui.geometry.Size(holeSize, holeSize),
             style = Stroke(width = 5f * scale)
-        )
-
-        // 添加立体感的阴影效果
-        drawCircle(
-            color = Color(0x40000000),
-            radius = radius * 1.02f,
-            center = Offset(centerX + 3, centerY + 3),
-            alpha = 0.3f
         )
     }
 }
