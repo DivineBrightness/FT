@@ -25,6 +25,8 @@ import androidx.navigation.navArgument
 import com.yijing.divination.data.model.YaoType
 import com.yijing.divination.ui.components.HexagramView
 import com.yijing.divination.ui.screen.divination.DivinationScreen
+import com.yijing.divination.ui.screen.history.HistoryScreen
+import com.yijing.divination.ui.screen.method.DivinationMethodScreen
 import com.yijing.divination.ui.screen.result.ResultScreen
 
 /**
@@ -49,7 +51,7 @@ fun YiJingNavGraph(
         composable(Screen.Home.route) {
             HomeScreenPlaceholder(
                 onNavigateToDivination = {
-                    navController.navigate(Screen.Divination.route)
+                    navController.navigate(Screen.DivinationMethod.route)
                 },
                 onNavigateToHexagramList = {
                     navController.navigate(Screen.HexagramList.route)
@@ -59,6 +61,21 @@ fun YiJingNavGraph(
                 },
                 onNavigateToLearning = {
                     navController.navigate(Screen.Learning.route)
+                }
+            )
+        }
+
+        // 占卜方法选择屏幕
+        composable(Screen.DivinationMethod.route) {
+            DivinationMethodScreen(
+                onNavigateToCoinToss = {
+                    navController.navigate(Screen.Divination.route)
+                },
+                onNavigateToHistory = {
+                    navController.navigate(Screen.History.route)
+                },
+                onNavigateBack = {
+                    navController.navigateUp()
                 }
             )
         }
@@ -91,11 +108,6 @@ fun YiJingNavGraph(
             ResultScreen(
                 onNavigateBack = {
                     navController.navigateUp()
-                },
-                onNavigateToHome = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Home.route) { inclusive = true }
-                    }
                 }
             )
         }
@@ -132,7 +144,7 @@ fun YiJingNavGraph(
 
         // 历史记录屏幕
         composable(Screen.History.route) {
-            HistoryScreenPlaceholder(
+            HistoryScreen(
                 onNavigateToResult = { recordId ->
                     navController.navigate(Screen.Result.createRoute(recordId))
                 },
@@ -228,17 +240,6 @@ private fun HexagramDetailScreenPlaceholder(
     PlaceholderScreen(
         title = "卦象详情",
         subtitle = "卦象 ID: $hexagramId"
-    )
-}
-
-@Composable
-private fun HistoryScreenPlaceholder(
-    onNavigateToResult: (Long) -> Unit,
-    onNavigateBack: () -> Unit
-) {
-    PlaceholderScreen(
-        title = "历史记录",
-        subtitle = "占卜记录屏幕"
     )
 }
 

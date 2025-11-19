@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,14 +43,12 @@ import java.util.Locale
  * 结果展示屏幕
  *
  * @param onNavigateBack 返回上一页
- * @param onNavigateToHome 返回主页
  * @param viewModel ViewModel
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResultScreen(
     onNavigateBack: () -> Unit,
-    onNavigateToHome: () -> Unit,
     viewModel: ResultViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -63,12 +60,6 @@ fun ResultScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "返回")
-                    }
-                },
-                actions = {
-                    // 返回主页按钮
-                    IconButton(onClick = onNavigateToHome) {
-                        Icon(Icons.Default.Home, contentDescription = "返回主页")
                     }
                 }
             )
@@ -305,12 +296,6 @@ private fun InterpretationCard(hexagram: Hexagram) {
             if (hexagram.xiangCi.isNotBlank()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 SectionContent(title = "象曰", content = hexagram.xiangCi)
-            }
-
-            // 卦义
-            if (hexagram.meaning.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                SectionContent(title = "卦义", content = hexagram.meaning)
             }
         }
     }

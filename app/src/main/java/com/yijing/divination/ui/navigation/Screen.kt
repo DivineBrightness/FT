@@ -13,6 +13,11 @@ sealed class Screen(val route: String) {
     data object Home : Screen("home")
 
     /**
+     * 占卜方法选择屏幕 - 选择占卜方法
+     */
+    data object DivinationMethod : Screen("divination_method")
+
+    /**
      * 占卜屏幕 - 进行铜钱占卜
      */
     data object Divination : Screen("divination")
