@@ -3,7 +3,7 @@ package com.yijing.divination.ui.screen.result
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yijing.divination.data.model.DivinationRecord
+import com.yijing.divination.data.local.database.entity.RecordEntity
 import com.yijing.divination.data.model.Hexagram
 import com.yijing.divination.data.repository.RecordRepository
 import com.yijing.divination.domain.algorithm.HexagramGenerator
@@ -173,7 +173,7 @@ class ResultViewModel @Inject constructor(
  */
 data class ResultUiState(
     val isLoading: Boolean = false,
-    val record: DivinationRecord? = null,
+    val record: RecordEntity? = null,
     val originalHexagram: Hexagram? = null,
     val changedHexagram: Hexagram? = null,
     val changingYaoPositions: List<Int> = emptyList(),

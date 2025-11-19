@@ -5,7 +5,7 @@ import com.yijing.divination.R
 import com.yijing.divination.data.local.database.entity.HexagramEntity
 import com.yijing.divination.data.local.database.entity.YaoEntity
 import com.yijing.divination.data.repository.HexagramRepository
-import com.yijing.divination.util.BookMarkdownParser
+import com.yijing.divination.util.HexagramDataRoot
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -55,7 +55,7 @@ class DatabaseInitializer @Inject constructor(
                 .use { it.readText() }
 
             // 解析 JSON
-            val data = json.decodeFromString<BookMarkdownParser.HexagramDataRoot>(jsonString)
+            val data = json.decodeFromString<HexagramDataRoot>(jsonString)
 
             println("解析到 ${data.hexagrams.size} 个卦象")
 

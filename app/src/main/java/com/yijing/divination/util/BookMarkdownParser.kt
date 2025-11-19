@@ -181,18 +181,29 @@ object BookMarkdownParser {
         val health = extractFromApplication(applicationText, listOf("健康", "身体"))
 
         // 生成爻组合（根据卦名推断）
-        val lines = generateLinesFromTrigrams(upperTrigram, lowerTrigram)
+        val yaoLines = generateLinesFromTrigrams(upperTrigram, lowerTrigram)
+
+
 
         // 生成简单的卦义和吉凶（可以后续完善）
+
         val meaning = "（待完善）"
+
         val fortune = extractFortune(applicationText)
 
+
+
         return HexagramData(
+
             id = id,
+
             name = fullName,
+
             upperTrigram = upperTrigram,
+
             lowerTrigram = lowerTrigram,
-            lines = lines,
+
+            lines = yaoLines,
             unicode = unicode,
             guaCi = guaCi,
             xiangCi = xiangCi,

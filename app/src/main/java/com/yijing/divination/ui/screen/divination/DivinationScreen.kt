@@ -180,7 +180,7 @@ private fun TossProgress(
         Spacer(modifier = Modifier.height(8.dp))
 
         LinearProgressIndicator(
-            progress = { currentIndex / 6f },
+            progress = currentIndex / 6f,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(8.dp)
