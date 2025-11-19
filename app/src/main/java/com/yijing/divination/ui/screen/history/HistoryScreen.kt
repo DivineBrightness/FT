@@ -190,9 +190,10 @@ private fun HistoryItem(
 }
 
 /**
- * 格式化时间戳
+ * 格式化时间戳为北京时间
  */
 private fun formatTimestamp(timestamp: Long): String {
     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA)
+    sdf.timeZone = java.util.TimeZone.getTimeZone("Asia/Shanghai")
     return sdf.format(Date(timestamp))
 }
