@@ -42,8 +42,8 @@ fun YiJingNavGraph(
         // 主屏幕 - 太极图
         composable(Screen.Home.route) {
             HomeScreen(
-                onNavigateToMethod = {
-                    navController.navigate(Screen.DivinationMethod.route)
+                onNavigateToDivination = {
+                    navController.navigate(Screen.Divination.route)
                 }
             )
         }

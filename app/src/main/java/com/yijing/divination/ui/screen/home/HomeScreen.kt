@@ -25,7 +25,7 @@ import kotlin.math.sin
 
 @Composable
 fun HomeScreen(
-    onNavigateToMethod: () -> Unit
+    onNavigateToDivination: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1f) }
@@ -66,7 +66,7 @@ fun HomeScreen(
                             scale.animateTo(0.9f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
                             scale.animateTo(1.1f, spring(dampingRatio = Spring.DampingRatioMediumBouncy))
                             scale.animateTo(1f, spring(dampingRatio = Spring.DampingRatioLowBouncy))
-                            onNavigateToMethod()
+                            onNavigateToDivination()
                         }
                     },
                     indication = null,
