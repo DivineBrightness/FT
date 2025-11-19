@@ -221,9 +221,13 @@ private fun HexagramCard(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 卦象显示
+            // 卦象显示（不显示卦名，避免重复）
+
             HexagramView(
-                hexagram = hexagram,
+
+                lines = hexagram.lines,
+
+                hexagramName = null,
                 changingPositions = changingPositions,
                 showLabels = true,
                 showTrigramDivider = true
