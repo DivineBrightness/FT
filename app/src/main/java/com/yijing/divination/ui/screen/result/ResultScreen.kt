@@ -221,14 +221,6 @@ private fun HexagramCard(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             // 卦象显示
             HexagramView(
                 hexagram = hexagram,
@@ -239,9 +231,9 @@ private fun HexagramCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // 卦名和八卦信息
+            // 卦名标识（本卦/变卦）和卦名合并显示
             Text(
-                text = "${hexagram.name} (${hexagram.unicode})",
+                text = "$title：${hexagram.name} ${hexagram.unicode}",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
