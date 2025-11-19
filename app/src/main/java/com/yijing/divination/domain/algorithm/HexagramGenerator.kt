@@ -76,7 +76,13 @@ class HexagramGenerator @Inject constructor(
         require(lines.size == 6) { "必须有6爻" }
 
         // 将爻转换为二进制字符串
-        val linesString = lines.joinToString("") {
+        // 注意：lines 列表是从下往上的（初爻到上爻）
+
+        // 但数据库中的 lines 字段是"上卦+下卦"的顺序（从上往下）
+
+        // 所以需要反转列表
+
+        val linesString = lines.reversed().joinToString("") {
             if (it == YaoType.YANG) "1" else "0"
         }
 
@@ -121,9 +127,15 @@ class HexagramGenerator @Inject constructor(
         val yaoEntities = hexagramRepository.getYaosByHexagramId(hexagramId)
 
         // 从 lines 字符串解析爻列表
+        // 数据库中的 lines 是"上卦+下卦"（从上往下）
+
+        // 需要反转为从下往上的顺序（初爻到上爻）
+
         val lines = hexagramEntity.lines.map {
+
             if (it == '1') YaoType.YANG else YaoType.YIN
-        }
+
+        }.reversed()
 
         return hexagramEntity.toDomainModel(yaoEntities, lines)
     }
@@ -137,9 +149,15 @@ class HexagramGenerator @Inject constructor(
         val allEntities = hexagramRepository.getAllHexagrams()
         return allEntities.map { entity ->
             val yaoEntities = hexagramRepository.getYaosByHexagramId(entity.id)
+            // 数据库中的 lines 是"上卦+下卦"（从上往下）
+
+            // 需要反转为从下往上的顺序（初爻到上爻）
+
             val lines = entity.lines.map {
+
                 if (it == '1') YaoType.YANG else YaoType.YIN
-            }
+
+            }.reversed()
             entity.toDomainModel(yaoEntities, lines)
         }
     }

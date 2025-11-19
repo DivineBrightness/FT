@@ -1,0 +1,276 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "f2123546e2718ac31e5366cadd971772",
+    "entities": [
+      {
+        "tableName": "hexagrams",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `upperTrigram` TEXT NOT NULL, `lowerTrigram` TEXT NOT NULL, `lines` TEXT NOT NULL, `unicode` TEXT NOT NULL, `guaCi` TEXT NOT NULL, `xiangCi` TEXT NOT NULL, `tuanCi` TEXT NOT NULL, `meaning` TEXT NOT NULL, `fortune` TEXT NOT NULL, `career` TEXT NOT NULL, `love` TEXT NOT NULL, `health` TEXT NOT NULL, `wealth` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "upperTrigram",
+            "columnName": "upperTrigram",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lowerTrigram",
+            "columnName": "lowerTrigram",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lines",
+            "columnName": "lines",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unicode",
+            "columnName": "unicode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guaCi",
+            "columnName": "guaCi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xiangCi",
+            "columnName": "xiangCi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tuanCi",
+            "columnName": "tuanCi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meaning",
+            "columnName": "meaning",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fortune",
+            "columnName": "fortune",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "career",
+            "columnName": "career",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "love",
+            "columnName": "love",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "health",
+            "columnName": "health",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wealth",
+            "columnName": "wealth",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "yaos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `hexagramId` INTEGER NOT NULL, `position` INTEGER NOT NULL, `name` TEXT NOT NULL, `text` TEXT NOT NULL, `xiangText` TEXT NOT NULL, `meaning` TEXT NOT NULL, FOREIGN KEY(`hexagramId`) REFERENCES `hexagrams`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hexagramId",
+            "columnName": "hexagramId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xiangText",
+            "columnName": "xiangText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meaning",
+            "columnName": "meaning",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_yaos_hexagramId",
+            "unique": false,
+            "columnNames": [
+              "hexagramId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_yaos_hexagramId` ON `${TABLE_NAME}` (`hexagramId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "hexagrams",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "hexagramId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "divination_records",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `question` TEXT, `originalHexagramId` INTEGER NOT NULL, `originalHexagramName` TEXT NOT NULL, `yaoResults` TEXT NOT NULL, `changedHexagramId` INTEGER, `changedHexagramName` TEXT, `changingYaoPositions` TEXT, `note` TEXT, `isFavorite` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "question",
+            "columnName": "question",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "originalHexagramId",
+            "columnName": "originalHexagramId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalHexagramName",
+            "columnName": "originalHexagramName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yaoResults",
+            "columnName": "yaoResults",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "changedHexagramId",
+            "columnName": "changedHexagramId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedHexagramName",
+            "columnName": "changedHexagramName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changingYaoPositions",
+            "columnName": "changingYaoPositions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2123546e2718ac31e5366cadd971772')"
+    ]
+  }
+}

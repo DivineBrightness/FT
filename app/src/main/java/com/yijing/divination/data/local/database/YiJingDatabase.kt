@@ -23,7 +23,7 @@ import com.yijing.divination.data.local.database.entity.YaoEntity
         YaoEntity::class,
         RecordEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class YiJingDatabase : RoomDatabase() {
