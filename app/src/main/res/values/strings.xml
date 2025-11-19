@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">易经占卜</string>
+    <string name="app_name">占卜</string>
 
     <!-- 导航 -->
     <string name="nav_home">首页</string>
