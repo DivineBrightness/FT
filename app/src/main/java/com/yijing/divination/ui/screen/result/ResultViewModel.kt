@@ -132,25 +132,6 @@ class ResultViewModel @Inject constructor(
     }
 
     /**
-     * 切换收藏状态
-     */
-    fun toggleFavorite() {
-        viewModelScope.launch {
-            try {
-                val currentRecord = _uiState.value.record ?: return@launch
-                val updatedRecord = currentRecord.copy(isFavorite = !currentRecord.isFavorite)
-                recordRepository.updateRecord(updatedRecord)
-
-                _uiState.update { it.copy(record = updatedRecord) }
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(errorMessage = "更新收藏失败：${e.message}")
-                }
-            }
-        }
-    }
-
-    /**
      * 删除记录
      */
     fun deleteRecord(onDeleted: () -> Unit) {

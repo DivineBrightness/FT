@@ -25,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -93,15 +92,6 @@ fun DivinationScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 问题输入区域
-            QuestionInput(
-                question = uiState.question,
-                onQuestionChange = { viewModel.setQuestion(it) },
-                enabled = uiState.divinationState == DivinationState.IDLE
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
             // 投掷进度
             TossProgress(
                 currentIndex = uiState.currentTossIndex,
@@ -131,32 +121,6 @@ fun DivinationScreen(
                 onClick = { viewModel.startDivination() }
             )
         }
-    }
-}
-
-/**
- * 问题输入组件
- */
-@Composable
-private fun QuestionInput(
-    question: String,
-    onQuestionChange: (String) -> Unit,
-    enabled: Boolean
-) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = "请输入您的问题（可选）",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        OutlinedTextField(
-            value = question,
-            onValueChange = onQuestionChange,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("例如：事业发展如何？") },
-            enabled = enabled,
-            maxLines = 3
-        )
     }
 }
 

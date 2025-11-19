@@ -34,13 +34,6 @@ class DivinationViewModel @Inject constructor(
     val uiState: StateFlow<DivinationUiState> = _uiState.asStateFlow()
 
     /**
-     * 设置占卜问题
-     */
-    fun setQuestion(question: String) {
-        _uiState.update { it.copy(question = question) }
-    }
-
-    /**
      * 开始占卜流程
      */
     fun startDivination() {
@@ -140,7 +133,7 @@ class DivinationViewModel @Inject constructor(
     private suspend fun saveRecord(result: DivinationResult): Long {
         val record = RecordEntity(
             timestamp = System.currentTimeMillis(),
-            question = _uiState.value.question.ifBlank { null },
+            question = null,
             originalHexagramId = result.originalHexagram.id,
             originalHexagramName = result.originalHexagram.name,
             yaoResults = result.tossResults.joinToString(",") { it.value.toString() },
@@ -209,7 +202,6 @@ class DivinationViewModel @Inject constructor(
  * 占卜 UI 状态
  */
 data class DivinationUiState(
-    val question: String = "",                              // 占卜问题
     val divinationState: DivinationState = DivinationState.IDLE, // 当前状态
     val currentTossIndex: Int = 0,                          // 当前投掷次数（0-6）
     val tossResults: List<CoinTossResult> = emptyList(),    // 投掷结果列表
