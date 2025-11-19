@@ -44,6 +44,9 @@ fun YiJingNavGraph(
             HomeScreen(
                 onNavigateToDivination = {
                     navController.navigate(Screen.Divination.route)
+                },
+                onNavigateToHistory = {
+                    navController.navigate(Screen.History.route)
                 }
             )
         }
