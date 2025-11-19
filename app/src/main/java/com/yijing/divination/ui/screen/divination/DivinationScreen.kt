@@ -58,6 +58,11 @@ fun DivinationScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    // 自动开始占卜
+    LaunchedEffect(Unit) {
+        viewModel.startDivination()
+    }
+
     // 当占卜完成时，自动导航到结果页面
     LaunchedEffect(uiState.divinationState) {
         if (uiState.divinationState == DivinationState.COMPLETED && uiState.savedRecordId != null) {
@@ -112,14 +117,6 @@ fun DivinationScreen(
 
             // 状态提示
             StateMessage(state = uiState.divinationState, errorMessage = uiState.errorMessage)
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // 开始占卜按钮
-            StartButton(
-                state = uiState.divinationState,
-                onClick = { viewModel.startDivination() }
-            )
         }
     }
 }
