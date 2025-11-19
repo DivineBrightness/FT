@@ -13,8 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -68,25 +66,6 @@ fun ResultScreen(
                     }
                 },
                 actions = {
-                    // 收藏按钮
-                    IconButton(
-                        onClick = { viewModel.toggleFavorite() },
-                        enabled = uiState.record != null
-                    ) {
-                        Icon(
-                            imageVector = if (uiState.record?.isFavorite == true) {
-                                Icons.Default.Favorite
-                            } else {
-                                Icons.Default.FavoriteBorder
-                            },
-                            contentDescription = "收藏",
-                            tint = if (uiState.record?.isFavorite == true) {
-                                MaterialTheme.colorScheme.error
-                            } else {
-                                MaterialTheme.colorScheme.onSurface
-                            }
-                        )
-                    }
                     // 返回主页按钮
                     IconButton(onClick = onNavigateToHome) {
                         Icon(Icons.Default.Home, contentDescription = "返回主页")
@@ -203,9 +182,6 @@ private fun ResultContent(
 
         // 卦辞解读
         InterpretationCard(hexagram = uiState.originalHexagram!!)
-
-        // 现代解读
-        ModernInterpretationCard(hexagram = uiState.originalHexagram!!)
     }
 }
 
@@ -335,56 +311,6 @@ private fun InterpretationCard(hexagram: Hexagram) {
             if (hexagram.meaning.isNotBlank()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 SectionContent(title = "卦义", content = hexagram.meaning)
-            }
-        }
-    }
-}
-
-/**
- * 现代解读卡片
- */
-@Composable
-private fun ModernInterpretationCard(hexagram: Hexagram) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "现代解读",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // 吉凶
-            if (hexagram.fortune.isNotBlank()) {
-                SectionContent(title = "吉凶", content = hexagram.fortune)
-            }
-
-            // 事业
-            if (hexagram.career.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                SectionContent(title = "事业", content = hexagram.career)
-            }
-
-            // 爱情
-            if (hexagram.love.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                SectionContent(title = "爱情", content = hexagram.love)
-            }
-
-            // 健康
-            if (hexagram.health.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                SectionContent(title = "健康", content = hexagram.health)
-            }
-
-            // 财富
-            if (hexagram.wealth.isNotBlank()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                SectionContent(title = "财富", content = hexagram.wealth)
             }
         }
     }

@@ -67,7 +67,10 @@ fun YiJingNavGraph(
         composable(Screen.Divination.route) {
             DivinationScreen(
                 onNavigateToResult = { recordId ->
-                    navController.navigate(Screen.Result.createRoute(recordId))
+                    navController.navigate(Screen.Result.createRoute(recordId)) {
+                        // 跳转到结果页面时，移除占卜页面
+                        popUpTo(Screen.Divination.route) { inclusive = true }
+                    }
                 },
                 onNavigateBack = {
                     navController.navigateUp()
