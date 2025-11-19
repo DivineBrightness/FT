@@ -2,8 +2,8 @@
 <resources>
     <!-- 启动画面主题（使用SplashScreen API） -->
     <style name="Theme.YiJingDivination" parent="Theme.SplashScreen">
-        <item name="android:statusBarColor">@color/md_theme_light_primary</item>
-        <item name="windowSplashScreenBackground">@color/md_theme_light_primary</item>
+        <item name="android:statusBarColor">#FFFFFF</item>
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.App</item>
     </style>
